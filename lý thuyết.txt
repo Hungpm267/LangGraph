@@ -1,0 +1,83 @@
+Tên	            Nghĩa trong LangGraph / AI	                                        Khác biệt chính
+🪞 Reflection   Đánh giá và sửa lỗi đầu ra của model	                            Chủ động, có reasoning sâu
+🔁 Reflexion    Một framework học hỏi từ quá khứ để cải tiến hiệu suất tương lai	Dựa trên memory và learning
+
+
+
+Reflection là khả năng của một agent trong LangGraph có thể xem xét lại (reflect) output của chính nó (hoặc của 
+agent khác), đánh giá, và nếu cần, đưa ra bản sửa đổi để cải thiện kết quả.
+
+=================================================================================================================
+
+🧠 Thành phần của một Reflexion System:
+Memory – lưu lại quá khứ: câu hỏi, kết quả, thành công/thất bại.
+Critique Generator – đánh giá mỗi bước: “Tại sao thất bại?”, “Điều gì làm đúng?”
+Strategy Updater – rút ra bài học, điều chỉnh hướng suy nghĩ cho bước tiếp theo.
+Loop – áp dụng cải tiến vào vòng tiếp theo.
+
+
+=================================================================================================================
+
+🔍 Tóm tắt nội dung trong hình:
+1. Cấu trúc của Reflection Agent System
+"Reflection Agent System consists of a generator and a reflector component"
+Một hệ thống phản chiếu (reflection) trong LangGraph thường gồm:
+Generator: tạo ra output ban đầu (ví dụ: viết bài viết, trả lời câu hỏi)
+Reflector: đánh giá, phản hồi, và chỉnh sửa nếu cần
+
+2. Vấn đề của mô hình chỉ dùng Reflection
+"Iteratively making a post better is better than just prompting ChatGPT..."
+Việc cải thiện nội dung từng bước rõ ràng tốt hơn so với chỉ hỏi ChatGPT một lần.
+Tuy nhiên, vẫn tồn tại vấn đề: dữ liệu tạo ra không dựa trên dữ liệu thực tế.
+
+3. Nguy cơ hiện hữu
+"It could be hallucination or outdated content and we have no way of knowing"
+Output có thể bị:
+Hallucination (bịa đặt thông tin)
+Outdated (thông tin cũ)
+Và bạn không có cách nào để xác minh nếu không có hệ thống kiểm chứng.
+
+4. Giải pháp: Reflexion Agent System
+"Reflexion Agent System address this exact drawback"
+Reflexion Agent được thiết kế để khắc phục nhược điểm trên bằng cách:
+Nhớ lại thông tin quá khứ (memory)
+Đưa ra phản hồi dựa trên kết quả trước đó
+Điều chỉnh chiến lược tạo nội dung để tránh lỗi lặp lại, giảm bịa đặt
+
+💡 Tóm lại:
+Vấn đề khi dùng LLM truyền thống    Cách Reflexion Agent khắc phục
+Dữ liệu không dựa vào thực tế	    Ghi nhớ lỗi sai & tự điều chỉnh chiến lược xử lý
+Không kiểm tra tính đúng đắn	    Có cơ chế phản hồi nội bộ (critic/self-review)
+Không học từ sai lầm	            Có khả năng học từ kinh nghiệm trước (memory loop)
+
+
+=================================================================================================================
+
+🤖 Reflexion Agent System trong LangGraph
+"The main component of Reflexion Agent System is the 'actor'"
+→ Actor là agent chính, điều khiển toàn bộ quá trình.
+"The 'actor'... reflects on its responses and re-executes."
+→ Nó tự phản chiếu (self-critique) và thực hiện lại nhiệm vụ nếu cần.
+"It can do this with or without tools..."
+→ Có thể cải thiện phản hồi dựa vào dữ liệu bên ngoài hoặc chỉ dựa vào phản chiếu nội bộ.
+
+🧩 Các thành phần phụ:
+Tools/tool execution – hỗ trợ agent tìm thông tin thực tế.
+Initial responder – tạo phản hồi đầu tiên & tự phản chiếu.
+Revisor – phản hồi lại dựa trên lần phản chiếu trước.
+
+🧩 Bộ nhớ theo từng giai đoạn (Episodic memory):
+Trong bối cảnh của các tác nhân Reflexion, bộ nhớ theo từng giai đoạn đề cập đến khả năng của tác nhân trong việc ghi nhớ các tương tác, 
+sự kiện hoặc trải nghiệm cụ thể trong quá khứ, thay vì chỉ là kiến thức tổng quát. Điều này rất quan trọng để giúp tác nhân trở nên có 
+nhận thức theo ngữ cảnh hơn, được cá nhân hóa hơn và giống con người hơn theo thời gian.
+
+
+=================================================================================================================
+
+✅ Tóm tắt quy trình LLM Response Parser System:
+
+"Cung cấp prompt template và Pydantic schema cho LLM.
+LLM trả về kết quả dạng JSON,
+rồi parser kiểm tra tính hợp lệ theo schema.
+Nếu hợp lệ → chuyển thành Python object,
+nếu không hợp lệ → báo lỗi."

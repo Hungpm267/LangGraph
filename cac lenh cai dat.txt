@@ -1,2 +1,6 @@
 pip install langgraph
 pip install langchain langchain_community langchain-google-genai python-dotenv 
+pip install grandalf
+
+
+git branch --set-upstream-to=origin/main master

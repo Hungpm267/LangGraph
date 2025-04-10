@@ -6,7 +6,7 @@ from langgraph.graph import END, MessageGraph
 from chains import generation_chain, reflection_chain
 
 # messageGraph là 1 class dùng để điều phối luồng tin nhắn giữa các node
-
+ 
 load_dotenv()
 
 REFLECT = "reflect"
@@ -36,3 +36,5 @@ ungdung.get_graph().print_ascii()
 response = ungdung.invoke(HumanMessage(content = "AI Agent taking over content creation"))
 
 print(response)
+
+

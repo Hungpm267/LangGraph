@@ -26,7 +26,7 @@ reflection_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-llm = ChatGoogleGenerativeAI(model = "gemini-1.5-pro")
+llm = ChatGoogleGenerativeAI(model = "gemini-1.5-flash")
 
 generation_chain = generation_prompt | llm
 reflection_chain = reflection_prompt | llm
