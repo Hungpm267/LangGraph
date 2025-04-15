@@ -18,10 +18,22 @@ llm = ChatGroq(model="llama-3.1-8b-instant")
 
 llm_with_tools = llm.bind_tools(tools=tools)
 
-def chatbot(state: BasicChatBot):
+
+# ví dụ tiếp:
+# state = {
+#     "messages": [
+#         HumanMessage(content="Chào bạn"),
+#         AIMessage(content="Xin chào! Tôi là trợ lý ảo của bạn."),
+#         HumanMessage(content="Bạn có thể tìm giúp tôi thông tin về Python không?")
+#     ]
+# }
+def chatbot_cua_hung(state: BasicChatBot):
     return {
         "messages": [llm_with_tools.invoke(state["messages"])], 
     }
+
+
+
 
 # ví dụ:
 # state["messages"] = [
@@ -45,7 +57,7 @@ tool_node = ToolNode(tools=tools)
 
 graph = StateGraph(BasicChatBot)
 
-graph.add_node("chatbot", chatbot)
+graph.add_node("chatbot", chatbot_cua_hung)
 graph.add_node("tool_node", tool_node)
 graph.set_entry_point("chatbot")
 
