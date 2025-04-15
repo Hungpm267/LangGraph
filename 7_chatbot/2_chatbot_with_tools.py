@@ -23,6 +23,15 @@ def chatbot(state: BasicChatBot):
         "messages": [llm_with_tools.invoke(state["messages"])], 
     }
 
+# ví dụ:
+# state["messages"] = [
+#     HumanMessage(content="Chào bạn, bạn tên là gì?"),
+#     AIMessage(content="Tôi là trợ lý ảo của bạn."),
+#     HumanMessage(content="Bạn có thể tìm thông tin về Elon Musk không?"),
+#     AIMessage(content="Chờ tôi tìm kiếm một chút..."),
+#     HumanMessage(content="Ngoài ra, hôm nay ở Hà Nội có mưa không?")
+# ]
+
 def tools_router(state: BasicChatBot):
     last_message = state["messages"][-1]
 
