@@ -1,4 +1,7 @@
-# con bot này không có tool, memory. chúng ta sẽ học graph stream method. chat looping, use free llama model
+# # con bot này không có tool, memory. chúng ta sẽ học graph stream method. chat looping, use free llama model
+
+# TypedDict: Định nghĩa dictionary với kiểu cụ thể cho từng key.
+# Annotated: Thêm metadata vào kiểu dữ liệu, dùng cho framework xử lý thêm thông tin đặc biệt.
 
 from typing import TypedDict, Annotated
 from langgraph.graph import add_messages, StateGraph, END
@@ -12,15 +15,15 @@ load_dotenv()
 
 llm = ChatGroq(model="llama-3.1-8b-instant")
 
-class BasicChatState(TypedDict):
-    messages: Annotated[list, add_messages]
+class State_cua_bot(TypedDict):
+    messages: Annotated[list, add_messages] # messages là key với kdl là list
 
-def chatbot(state: BasicChatState):
+def chatbot(state: State_cua_bot):
     return {
         "messages": [llm.invoke(state["messages"])]
     }
 
-graph = StateGraph(BasicChatState)
+graph = StateGraph(State_cua_bot)
 
 graph.add_node("chatbot", chatbot)
 graph.set_entry_point("chatbot")
