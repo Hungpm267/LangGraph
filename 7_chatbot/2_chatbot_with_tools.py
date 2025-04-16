@@ -14,7 +14,7 @@ class BasicChatBot(TypedDict):
 search_tool = TavilySearchResults(max_results=2)
 tools = [search_tool]
 
-llm = ChatGroq(model="llama-3.1-8b-instant")
+llm = ChatGroq(model="llama-3.1-8b-instant", verbose = True)
 
 llm_with_tools = llm.bind_tools(tools=tools)
 
