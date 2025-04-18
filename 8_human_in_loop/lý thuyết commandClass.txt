@@ -1,0 +1,24 @@
+Trong LangGraph, lớp Command được thiết kế để hỗ trợ giao tiếp đa tác tử (multi-agent) một cách linh 
+hoạt, cho phép các node (nút) xác định cách cập nhật trạng thái và quyết định node nào sẽ được thực thi 
+tiếp theo.
+
+from typing import Literal
+from langgraph.graph import Command
+
+def agent(state: MessagesState) -> Command[Literal[..., END]]:
+    response = "Your response here"
+    return Command(
+        goto=...,  # Chỉ định node tiếp theo cần thực thi
+        update={"messages": [response]}  # Cập nhật trạng thái
+    )
+
+def agent(state: MessagesState) -> Command[Literal[...,END]]:
+    response = "hungmanh"
+    return Command(
+        goto=...,
+        update={"messages": [response]}
+    )
+
+
+Lớp này cho phép xây dựng kiến trúc dựa trên đồ thị một cách linh động hơn, không phụ thuộc vào các 
+cạnh (edges) được định nghĩa trước, bằng cách để các node tự kiểm soát dòng thực thi (execution flow).
